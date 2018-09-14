@@ -1,0 +1,17 @@
+---
+# tasks file for ansible-role-innodb-cluster
+
+- name: Test if clustering already exists
+  stat:
+    path: "{{ mysql_data_path }}/mysql_innodb_cluster_metadata"
+  register: cluster_data_path
+
+- debug:
+    msg: "Cluster data path stat is {{ cluster_data_path }}"
+
+- name: Bootstrap the cluster if new deployment
+  import_tasks: bootstrap_cluster.yml
+  when:
+    - (not cluster_data_path.stat.exists)
+
+# - name: Add node(s) to

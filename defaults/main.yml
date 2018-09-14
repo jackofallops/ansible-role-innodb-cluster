@@ -1,0 +1,13 @@
+---
+# defaults file for ansible-role-innodb-cluster
+mysql_data_path: /var/lib/mysql
+mysql_service_user: mysql
+mysql_service_group: mysql
+
+mysql_root_user: root
+mysql_root_password: mysql
+
+innodb_cluster_admin_password: supersecretpassword
+innodb_cluster_name: innodbcluster
+innodb_cluster_user: clusteradmin
+innodb_cluster_primary_node: localhost

@@ -1,0 +1,21 @@
+var dbPass = "{{ innodb_cluster_admin_password }}"
+var clusterName = "{{ innodb_cluster_name }}"
+
+var mysql = require('mysql')
+
+try {
+    var session = mysql.getClassicSession('{{ msyql_root_user }}@localhost', '{{ mysql_root_password }}')
+    session.runSql("create user '{{ innodb_cluster_user }}' identified by '{{ innodb_cluster_admin_password }}'")
+    session.runSql("GRANT ALL PRIVILEGES ON *.* TO {{ innodb_cluster_user }}@'%' WITH GRANT OPTION")
+} catch(e){
+    print('\n The innodb cluster admin user could not be created\n' + e.message + '\n')
+}
+
+try {
+    print('Bootstrapping cluster primary instance...\n');
+    shell.connect('{{ innodb_cluster_user }}@{{ innodb_cluster_primary_node }}', dbPass);
+    var cluster = dba.createCluster(clusterName);
+
+} catch(e){
+    print('\nThe InnoDB cluster could not be created.\n\nError: ' + e.message + '\n');
+}

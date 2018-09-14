@@ -1,0 +1,8 @@
+---
+- name: Template the my.cnf
+  template:
+    dest: /etc/my.cnf
+    src: templates/my.cnf.j2
+    owner: "{{ mysql_service_user }}"
+    group: "{{ mysql_service_group }}"
+    mode: '0644'

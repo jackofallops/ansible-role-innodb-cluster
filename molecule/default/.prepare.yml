@@ -1,0 +1,46 @@
+---
+- name: PREPARE 
+  hosts: all
+  # gather_facts: false
+  tasks:
+    - debug:
+      msg: "Running empty prepare playbook"
+    # - name: Create mysql group
+    #   group:
+    #     name: mysql
+    # - name: Create mysql user
+    #   user:
+    #     name: mysql
+    #     group: mysql
+    # - name: Create mock data path
+    #   file:
+    #     path: /var/lib/mysql
+    #     state: directory
+    #     mode: '0644'
+    #     owner: mysql
+    #     group: mysql
+    # - name: add mysql repo
+    #   yum_repository:
+    #     name: mysql
+    #     description: myql official community repo
+    #     baseurl: https://repo.mysql.com/yum/mysql-5.7-community/el/7/$basearch/
+    #     gpgcheck: no
+    # - name: add mysql-tools repo
+    #   yum_repository:
+    #     name: mysql-tools
+    #     description: myql official tools community repo
+    #     baseurl: http://repo.mysql.com/yum/mysql-tools-community/el/7/$basearch/
+    #     gpgcheck: no
+    # - name: yum-clean-metadata
+    #   command: yum clean metadata
+    #   args:
+    #     warn: no
+    # - name: install mysql community
+    #   yum:
+    #     name: mysql-community-server
+    #     state: present
+    # - name: start mysql
+    #   service:
+    #     name: mysqld
+    #     enabled: yes
+    #     state: started

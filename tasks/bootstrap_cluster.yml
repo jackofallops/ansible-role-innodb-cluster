@@ -1,0 +1,29 @@
+---
+- name: Template bootstrapping js for mysqlsh
+  template:
+    dest: "{{ mysql_data_path }}/bootstrap_cluster.js"
+    src: templates/bootstrap_cluster.js.j2
+    owner: "{{ mysql_service_user }}"
+    group: "{{ mysql_service_group }}"
+    mode: '0644'    
+
+- name: install mysqlsh
+  yum:
+    name: mysql-shell
+    state: present
+
+- name: wait for the mysql port to be available
+  wait_for:
+    # host: 0.0.0.0
+    port: 3306
+    delay: 10
+    state: started
+
+# - name: Add cluster admin user to server
+#   mysql_user:
+#     name: "{{ innodb_cluster_user }}"
+#     password: "{{ innodb_cluster_admin_password }}"
+#     state: present
+
+- name: Bootstrap the cluster (new deployment)
+  command: mysqlsh -f {{ mysql_data_path }}/bootstrap_cluster.js
